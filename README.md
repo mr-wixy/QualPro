@@ -1,0 +1,3 @@
+# QualPro
+
+基于QuickAuth集成登录平台API开发的插件，适用于WordPress和Typecho
