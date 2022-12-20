@@ -1,0 +1,221 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3401866 */
+  src: url('iconfont.woff2?t=1658629572536') format('woff2'),
+       url('iconfont.woff?t=1658629572536') format('woff'),
+       url('iconfont.ttf?t=1658629572536') format('truetype'),
+       url('iconfont.svg?t=1658629572536#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 35px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-si-microsoft:before {
+  content: "\e964";
+}
+
+.icon-si-mobile:before {
+  content: "\e688";
+}
+
+.icon-si-alipay:before {
+  content: "\e884";
+}
+
+.icon-si-microsoft-2:before {
+  content: "\e60b";
+}
+
+.icon-si-facebook:before {
+  content: "\e605";
+}
+
+.icon-si-telegram:before {
+  content: "\e715";
+}
+
+.icon-si-google:before {
+  content: "\e888";
+}
+
+.icon-si-weibo:before {
+  content: "\e88a";
+}
+
+.icon-si-dingding:before {
+  content: "\e629";
+}
+
+.icon-si-miniprogram:before {
+  content: "\e648";
+}
+
+.icon-si-gitee:before {
+  content: "\e712";
+}
+
+.icon-si-github:before {
+  content: "\e885";
+}
+
+.icon-si-qq:before {
+  content: "\e887";
+}
+
+.icon-si-wechat:before {
+  content: "\e623";
+}
+
+#qualpro-title{
+    display:block;
+    margin-bottom:10px !important;
+    text-align:center;
+    
+}
+#qualpro-box{
+    display:block;
+    margin-bottom:10px !important;
+    text-align:center;
+    
+}
+#qualpro-box a{
+    width:35px;
+    height:35px;
+    line-height:35px;
+    text-align:center;
+    display:inline-block;
+    margin-left:5px;
+    margin-right:5px;
+    border-radius:3px;
+    text-decoration: none;
+}
+.qualpro-facebook-icon{color:#3c5a9b !important;}
+.qualpro-telegram-icon{color:#2796d0 !important;}
+.qualpro-weibo-icon{color:#fe0000 !important;}
+.qualpro-wechat-icon{color:#2a0 !important;}
+.qualpro-dingding-icon{color:#0b8dff !important;}
+.qualpro-qq-icon{color:#09f !important;}
+.qualpro-github-icon{color:#6e7781 !important;}
+.qualpro-gitee-icon{color:#c71d23 !important;}
+.qualpro-sms-icon{color:#ffb900 !important;}
+.qualpro-miniprogram-icon{color:#605ab0 !important;}
+.qualpro-alipay-icon{color:#1677ff !important;}
+
+.qualpro-settings-header{
+    text-align: center;
+    margin: 0 0 1rem;
+    background: #fff;
+    border-bottom: 1px solid #dcdcde;
+}
+
+.qualpro-settings-title-section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clear: both;
+    padding-top: 8px;
+}
+
+.qualpro-settings-title-section-title{
+    display: inline-block; 
+    font-weight: 600; 
+    margin: 0 .8rem 1rem; 
+    font-size: 23px; 
+    padding: 9px 0 4px; 
+    line-height: 1.3;
+    color: #1d2327;
+}
+
+.qualpro-settings-tabs-wrapper {
+    display: -ms-inline-grid;
+    -ms-grid-columns: 1fr 1fr;
+    vertical-align: top;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.qualpro-settings-tab {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: .5rem 1rem 1rem;
+    margin: 0 1rem;
+    transition: box-shadow .5s ease-in-out;
+}
+
+.qualpro-settings-tab.active {
+    box-shadow: inset 0 -3px #3582c4;
+    font-weight: 600;
+}
+
+.qualpro-settings-body {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.account-table-th {
+    width: 50%; 
+    padding-left: 100px;
+}
+
+.account-table-th-title{
+    display: flex; 
+    flex-direction: row; 
+    align-items: center;
+    font-weight: 500;
+}
+
+.account-table-td-content{
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.show {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.social-text {   
+    box-sizing: border-box;
+    min-width: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 18px 0 12px;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.social-text .absolute-centered {    
+    box-sizing: border-box;
+    margin: 0;
+    min-width: 0;
+    color: #999999;
+    font-size: 12px;
+    margin-left: 16px;
+    margin-right: 16px;
+    overflow: hidden;
+    line-height: 17px;
+    white-space: nowrap;
+}
+
+.social-text-border{
+    box-sizing: border-box;
+    margin: 0;
+    min-width: 0;
+    border-top: 1px solid;
+    border-color: #EBEBEB;
+    width: 64px;
+}
