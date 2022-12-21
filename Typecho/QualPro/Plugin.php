@@ -179,22 +179,15 @@ class QualPro_Plugin implements Typecho_Plugin_Interface {
         $qauth_user_secret  = $options->qauth_user_secret;
         $qauth_login_type  = $options->login_type;
         
-        $ua = $_SERVER['HTTP_USER_AGENT'];
         $panelStr = '<div style="margin-top:1rem;">';
         $panelStr .= '<link rel="stylesheet" href="'.Helper::options()->pluginUrl . '/QualPro/res/qualpro.css" />';
         //$panelStr .= '<div class="social-text"><div class="social-text-border"></div><div class="absolute-centered">第三方账号登录</div><div class="social-text-border"></div></div>';
-        
-        if(strpos($ua, 'MicroMessenger') != false){
-            $panelStr .= '<p id="qualpro-title" class="qualpro-box"><a href="'.$qauthUrl.'?type=wechat" class="button" style="width:100%;background-color:#2a0;border-color:#2a0;"><span class="iconfont icon-si-wechat" style="font-size:14px;color:white">&nbsp;微信一键登录</span></a></p>';
-        }
         $panelStr .= '<p id="qualpro-box" class="qualpro-box">';
         if($qauth_appkey == "" || $qauth_appkey == null || $qauth_user_secret == "" || $qauth_user_secret == null){
             $panelStr .= '<span style="color:gray;">请配置QualPro的appkey和user_secret</span>';
         }
         else {
-            if(strpos($ua, 'MicroMessenger') == false){
-                if(in_array("wechat",$qauth_login_type)) $panelStr .= '<a href="'.$qauthUrl.'?type=wechat" title="微信扫码登录" class="qualpro-wechat-icon"><span class="iconfont icon-si-wechat"></span></a>';
-            }
+            if(in_array("wechat",$qauth_login_type)) $panelStr .= '<a href="'.$qauthUrl.'?type=wechat" title="微信扫码登录" class="qualpro-wechat-icon"><span class="iconfont icon-si-wechat"></span></a>';
             if(in_array("sms",$qauth_login_type)) $panelStr .= '<a href="'.$qauthUrl.'?type=sms" title="验证码登录" class="qualpro-sms-icon"><span class="iconfont icon-si-mobile"></span></a>';
             if(in_array("miniprogram",$qauth_login_type)) $panelStr .= '<a href="'.$qauthUrl.'?type=miniprogram" title="小程序扫码登录" class="qualpro-miniprogram-icon"><span class="iconfont icon-si-miniprogram"></span></a>';
             if(in_array("qq",$qauth_login_type)) $panelStr .= '<a href="'.$qauthUrl.'?type=qq" title="QQ快捷登录" class="qualpro-qq-icon"><span class="iconfont icon-si-qq"></span></a>';
