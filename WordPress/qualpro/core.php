@@ -17,6 +17,7 @@ function qauth_init() {
 	update_option('qauth_user_secret', '');
 	update_option('qauth_api', 'https://api.qauth.cn');
 	update_option('qauth_auto_register', '1');
+	update_option('qauth_state_check', '1');
 	update_option('qualpro_redirect_type', '1');
 	update_option('qualpro_redirect_url', '/');
 }
@@ -120,6 +121,203 @@ function qualpro_login($turn_to_current_page = false)
         if($qualpro_telegram) $panelStr .=  '<a href="'.constant("qualpro_plugin").'page/qauth.php?type=telegram'.$redirect.'" title="电报扫码登录" rel="nofollow" class="qualpro-telegram-icon"><span class="iconfont icon-si-telegram"></span></a>';
     }
     return $panelStr."</div>";
+}
+
+function qualpro_account($form_url, $turn_page = null) {
+    
+    $current_user = wp_get_current_user();
+    
+    if($turn_page == null){
+        $turn_page = '&redirect='.home_url(add_query_arg(array()));
+    }
+    else{
+        $turn_page = '&redirect='.$turn_page;
+    }
+    
+    $wechatopenid = get_user_meta($current_user->data->ID, 'qualpro_wechat_offiaccount_openid', true);
+    $miniprogramopenid = get_user_meta($current_user->data->ID, 'qualpro_wechat_miniprogram_openid', true);
+    $qqopenid = get_user_meta($current_user->data->ID, 'qualpro_qq_openid', true);
+    $githubopenid = get_user_meta($current_user->data->ID, 'qualpro_github_openid', true);
+    $dingtalkopenid = get_user_meta($current_user->data->ID, 'qualpro_dingtalk_openid', true);
+    $weiboopenid = get_user_meta($current_user->data->ID, 'qualpro_weibo_openid', true);
+    $alipayopenid = get_user_meta($current_user->data->ID, 'qualpro_alipay_openid', true);
+    $giteeopenid = get_user_meta($current_user->data->ID, 'qualpro_gitee_openid', true);
+    
+    $qualpro_wechat  = get_option('qualpro_wechat');
+    $qualpro_miniprogram  = get_option('qualpro_miniprogram');
+    $qualpro_qq  = get_option('qualpro_qq');
+    $qualpro_github  = get_option('qualpro_github');
+    $qualpro_dingtalk  = get_option('qualpro_dingtalk');
+    $qualpro_weibo  = get_option('qualpro_weibo');
+    $qualpro_alipay  = get_option('qualpro_alipay');
+    $qualpro_gitee  = get_option('qualpro_gitee');
+    
+    $accountHtml = '<link rel="stylesheet" href="'.constant("qualpro_plugin").'res/qualpro.css">';
+    $accountHtml.= '<div class="wrap">
+        <div class="qualpro-settings-header">
+        	<div class="qualpro-settings-title-section">
+        		<div style="display: inline-block; font-weight: 600; margin: 0 .8rem 1rem; font-size: 23px; padding: 9px 0 4px; line-height: 1.3;color: #1d2327;">第三方账号绑定</div>
+        	</div>
+        	<nav aria-label="描述">
+        		<p  style="text-align: center;">您可以在此处绑定或者解绑您的第三方账号</p>
+        	</nav>
+        </div>';
+        $accountHtml .= ' <div class="privacy-settings-body hide-if-no-js">
+        <form method="post" action="'.$form_url.'">
+		    <table class="form-table widefat importers striped" style="width:100%">	';
+		if($qualpro_wechat){
+		    $accountHtml .= '<tr>
+    				<th valign="top" style="width: 50%; padding-left: 100px;">
+    				    <div class="account-table-th-title">
+    				        <span class="iconfont icon-si-wechat qualpro-wechat-icon"></span>&nbsp;<strong>微信</strong>
+    				    </div>
+    				</th>
+    				<td style="width:50%;">
+    				    <div class="account-table-td-content">';
+    		if($wechatopenid){
+    		    $accountHtml .= '<span style="color:green;font-weight:600;">已绑定</span>
+        				        <button type="submit" name="unbinding_type" value="qualpro_wechat_offiaccount_openid" class="button">解绑</button>   ';
+    		}
+    		else{
+    		    $accountHtml .= '<span style="color:#a9a9a9">未绑定</span><a href="'.constant("qualpro_plugin").'page/qauth.php?type=wechat'.$turn_page.'" class="button button-primary">绑定</a>';
+    		}
+    		$accountHtml .= '</div></td></tr>';
+		}
+		if($qualpro_miniprogram){
+		    $accountHtml .= '<tr>
+    				<th valign="top" style="width: 50%; padding-left: 100px;">
+    				    <div class="account-table-th-title">
+    				        <span class="iconfont icon-si-miniprogram qualpro-miniprogram-icon"></span>&nbsp;<strong>小程序</strong>
+    				    </div>
+    				</th>
+    				<td style="width:50%;">
+    				    <div class="account-table-td-content">';
+    		if($miniprogramopenid){
+    		    $accountHtml .= '<span style="color:green;font-weight:600;">已绑定</span>
+        				        <button type="submit" name="unbinding_type" value="qualpro_wechat_miniprogram_openid" class="button">解绑</button>   ';
+    		}
+    		else{
+    		    $accountHtml .= '<span style="color:#a9a9a9">未绑定</span><a href="'.constant("qualpro_plugin").'page/qauth.php?type=miniprogram'.$turn_page.'" class="button button-primary">绑定</a>';
+    		}
+    		$accountHtml .= '</div></td></tr>';
+		}
+		
+		if($qualpro_qq){
+		    $accountHtml .= '<tr>
+    				<th valign="top" style="width: 50%; padding-left: 100px;">
+    				    <div class="account-table-th-title">
+    				        <span class="iconfont icon-si-qq qualpro-qq-icon"></span>&nbsp;<strong>QQ</strong>
+    				    </div>
+    				</th>
+    				<td style="width:50%;">
+    				    <div class="account-table-td-content">';
+    		if($qqopenid){
+    		    $accountHtml .= '<span style="color:green;font-weight:600;">已绑定</span>
+        				        <button type="submit" name="unbinding_type" value="qualpro_qq_openid" class="button">解绑</button>   ';
+    		}
+    		else{
+    		    $accountHtml .= '<span style="color:#a9a9a9">未绑定</span><a href="'.constant("qualpro_plugin").'page/qauth.php?type=qq'.$turn_page.'" class="button button-primary">绑定</a>';
+    		}
+    		$accountHtml .= '</div></td></tr>';
+		}
+		
+		if($qualpro_github){
+		    $accountHtml .= '<tr>
+    				<th valign="top" style="width: 50%; padding-left: 100px;">
+    				    <div class="account-table-th-title">
+    				        <span class="iconfont icon-si-github qualpro-github-icon"></span>&nbsp;<strong>Github</strong>
+    				    </div>
+    				</th>
+    				<td style="width:50%;">
+    				    <div class="account-table-td-content">';
+    		if($githubopenid){
+    		    $accountHtml .= '<span style="color:green;font-weight:600;">已绑定</span>
+        				        <button type="submit" name="unbinding_type" value="qualpro_github_openid" class="button">解绑</button>   ';
+    		}
+    		else{
+    		    $accountHtml .= '<span style="color:#a9a9a9">未绑定</span><a href="'.constant("qualpro_plugin").'page/qauth.php?type=github'.$turn_page.'" class="button button-primary">绑定</a>';
+    		}
+    		$accountHtml .= '</div></td></tr>';
+		}
+		
+		if($qualpro_dingtalk){
+		    $accountHtml .= '<tr>
+    				<th valign="top" style="width: 50%; padding-left: 100px;">
+    				    <div class="account-table-th-title">
+    				        <span class="iconfont icon-si-dingding qualpro-dingding-icon"></span>&nbsp;<strong>钉钉</strong>
+    				    </div>
+    				</th>
+    				<td style="width:50%;">
+    				    <div class="account-table-td-content">';
+    		if($dingtalkopenid){
+    		    $accountHtml .= '<span style="color:green;font-weight:600;">已绑定</span>
+        				        <button type="submit" name="unbinding_type" value="qualpro_dingtalk_openid" class="button">解绑</button>   ';
+    		}
+    		else{
+    		    $accountHtml .= '<span style="color:#a9a9a9">未绑定</span><a href="'.constant("qualpro_plugin").'page/qauth.php?type=dingtalk'.$turn_page.'" class="button button-primary">绑定</a>';
+    		}
+    		$accountHtml .= '</div></td></tr>';
+		}
+		
+		if($qualpro_weibo){
+		    $accountHtml .= '<tr>
+    				<th valign="top" style="width: 50%; padding-left: 100px;">
+    				    <div class="account-table-th-title">
+    				        <span class="iconfont icon-si-weibo qualpro-weibo-icon"></span>&nbsp;<strong>微博</strong>
+    				    </div>
+    				</th>
+    				<td style="width:50%;">
+    				    <div class="account-table-td-content">';
+    		if($weiboopenid){
+    		    $accountHtml .= '<span style="color:green;font-weight:600;">已绑定</span>
+        				        <button type="submit" name="unbinding_type" value="qualpro_weibo_openid" class="button">解绑</button>   ';
+    		}
+    		else{
+    		    $accountHtml .= '<span style="color:#a9a9a9">未绑定</span><a href="'.constant("qualpro_plugin").'page/qauth.php?type=weibo'.$turn_page.'" class="button button-primary">绑定</a>';
+    		}
+    		$accountHtml .= '</div></td></tr>';
+		}
+		
+		if($qualpro_alipay){
+		    $accountHtml .= '<tr>
+    				<th valign="top" style="width: 50%; padding-left: 100px;">
+    				    <div class="account-table-th-title">
+    				        <span class="iconfont icon-si-alipay qualpro-alipay-icon"></span>&nbsp;<strong>支付宝</strong>
+    				    </div>
+    				</th>
+    				<td style="width:50%;">
+    				    <div class="account-table-td-content">';
+    		if($alipayopenid){
+    		    $accountHtml .= '<span style="color:green;font-weight:600;">已绑定</span>
+        				        <button type="submit" name="unbinding_type" value="qualpro_alipay_openid" class="button">解绑</button>   ';
+    		}
+    		else{
+    		    $accountHtml .= '<span style="color:#a9a9a9">未绑定</span><a href="'.constant("qualpro_plugin").'page/qauth.php?type=alipay'.$turn_page.'" class="button button-primary">绑定</a>';
+    		}
+    		$accountHtml .= '</div></td></tr>';
+		}
+		
+		if($qualpro_gitee){
+		    $accountHtml .= '<tr>
+    				<th valign="top" style="width: 50%; padding-left: 100px;">
+    				    <div class="account-table-th-title">
+    				        <span class="iconfont icon-si-gitee qualpro-gitee-icon"></span>&nbsp;<strong>Gitee</strong>
+    				    </div>
+    				</th>
+    				<td style="width:50%;">
+    				    <div class="account-table-td-content">';
+    		if($giteeopenid){
+    		    $accountHtml .= '<span style="color:green;font-weight:600;">已绑定</span>
+        				        <button type="submit" name="unbinding_type" value="qualpro_gitee_openid" class="button">解绑</button>   ';
+    		}
+    		else{
+    		    $accountHtml .= '<span style="color:#a9a9a9">未绑定</span><a href="'.constant("qualpro_plugin").'page/qauth.php?type=gitee'.$turn_page.'" class="button button-primary">绑定</a>';
+    		}
+    		$accountHtml .= '</div></td></tr>';
+		}
+		
+		$accountHtml .= ' </table></form></div></div>';
+		echo $accountHtml;
 }
 
 // 新增菜单

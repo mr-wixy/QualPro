@@ -19,6 +19,7 @@
             	$qauth_user_secret   = isset($_POST['qauth_user_secret'])?trim($_POST['qauth_user_secret']):null;
             	$qauth_api   = isset($_POST['qauth_api'])?trim($_POST['qauth_api']):null;
             	$qauth_auto_register   = isset($_POST['qauth_auto_register'])?trim($_POST['qauth_auto_register']):null;
+            	$qauth_state_check   = isset($_POST['qauth_state_check'])?trim($_POST['qauth_state_check']):null;
             	$qualpro_redirect_type = isset($_POST['qualpro_redirect_type'])?trim($_POST['qualpro_redirect_type']):null;
             	$qualpro_redirect_url = isset($_POST['qualpro_redirect_url'])?trim($_POST['qualpro_redirect_url']):null;
             	
@@ -26,6 +27,7 @@
             	update_option('qauth_user_secret', $qauth_user_secret);
             	update_option('qauth_api', $qauth_api);
             	update_option('qauth_auto_register', $qauth_auto_register);
+            	update_option('qauth_state_check', $qauth_state_check);
             	update_option('qualpro_redirect_type', $qualpro_redirect_type);
             	update_option('qualpro_redirect_url', $qualpro_redirect_url);
             	echo '<div class="updated settings-error"><p>保存成功</p></div>';
@@ -34,6 +36,7 @@
             $qauth_user_secret  = get_option('qauth_user_secret');
             $qauth_api  = get_option('qauth_api');
             $qauth_auto_register  = get_option('qauth_auto_register');
+            $qauth_state_check  = get_option('qauth_state_check');
             $qualpro_redirect_type  = get_option('qualpro_redirect_type');
             $qualpro_redirect_url  = get_option('qualpro_redirect_url');
                         
@@ -145,6 +148,12 @@
     				<th valign="top"><strong>未绑定用户自动注册</strong>
     				</th>
     				<td><input type="checkbox" id="qauth_auto_register" name="qauth_auto_register" value="1"  <?php if($qauth_auto_register) echo 'checked'; ?>/>开启
+    				</td>
+    			</tr>
+    			<tr>
+    				<th valign="top"><strong>启用state验证</strong>
+    				</th>
+    				<td><input type="checkbox" id="qauth_state_check" name="qauth_state_check" value="1"  <?php if($qauth_state_check) echo 'checked'; ?>/>开启
     				</td>
     			</tr>
     			<tr>

@@ -8,13 +8,16 @@ $qauth_api  = get_option('qauth_api');
 $qauth_appkey  = get_option('qauth_appkey');
 $qauth_user_secret  = get_option('qauth_user_secret');
 $qauth_auto_register = get_option('qauth_auto_register');
+$qauth_state_check = get_option('qauth_state_check');
 $qualpro_redirect_url = get_option('qualpro_redirect_url');
 
 if(isset($_GET['code']) && isset($_GET['state'])){
     $code = $_GET['code'];
     $state = $_GET['state'];
-    if($state != $_SESSION['qualpro_state']){
-        wp_die("请求state无效！");
+    if($qauth_state_check){
+        if($state != $_SESSION['qualpro_state']){
+            wp_die("请求state无效！");
+        }
     }
     $response = wp_remote_get($qauth_api.'/authinfo?code='.$code.'&appkey='.$qauth_appkey.'&secret='.$qauth_user_secret);
     $body = wp_remote_retrieve_body( $response );
@@ -60,10 +63,24 @@ if(isset($_GET['code']) && isset($_GET['state'])){
         $user_query = new WP_User_Query( array( 'meta_key' => $userMetaKey, 'meta_value' => $user_obj->openId) );
         //绑定
         if(is_user_logged_in()){
-            if($user_query->get_results()){
-                wp_die("此第三方账号已被其他账号绑定过了，请先解绑！");
+            $queryRes = $user_query->get_results();
+            if($queryRes){
+                $current_user = wp_get_current_user();
+                if($current_user->data->ID != $queryRes[0]->data->ID){
+                    wp_die("此第三方账号已被其他账号绑定过了，请先解绑！");
+                }
+                else{
+                    if($auth_obj->redirectUrl){
+            	        wp_redirect($auth_obj->redirectUrl); 
+                	}
+                	else{
+            	        wp_redirect( home_url().$qualpro_redirect_url ); 
+                	} 
+                }
             }
             else{
+                // var_dump($auth_obj);
+                // exit;
                 $current_user = wp_get_current_user();
                 add_user_meta($current_user->data->ID, $userMetaKey, $user_obj->openId);
                 if($auth_obj->authType == "wechat"){
@@ -72,7 +89,12 @@ if(isset($_GET['code']) && isset($_GET['state'])){
                         add_user_meta($current_user->data->ID, 'qualpro_wechat_unionid', $user_obj->unionId);
                     }
                 }
-            	wp_redirect( home_url().'/wp-admin/admin.php?page=qualpro/page/account.php' ); 
+                if($auth_obj->redirectUrl){
+            	    wp_redirect($auth_obj->redirectUrl); 
+            	}
+            	else{
+            	    wp_redirect( home_url().'/wp-admin/admin.php?page=qualpro/page/account.php' ); 
+            	} 
             }
         }
         //登录

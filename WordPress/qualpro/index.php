@@ -3,7 +3,7 @@
 Plugin Name: QualPro
 Plugin URI: https://github.com/mr-wixy/QualPro
 Description: QualPro是基于QuickAuth平台的集成登录插件
-Version: 1.0.0
+Version: 1.0.1
 Author: wixy
 Author URI: https://blog.wixy.cn/
 */
