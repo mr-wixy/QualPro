@@ -18,7 +18,7 @@
 
 ### 插件详情
 
-- [Typecho版本QuanPro](/WordPress/README.md)
+- [Typecho版本QuanPro](/Typecho/README.md)
 
 ### 安装配置教程
 

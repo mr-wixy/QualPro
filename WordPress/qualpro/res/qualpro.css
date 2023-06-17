@@ -8,8 +8,8 @@
 
 .iconfont {
   font-family: "iconfont" !important;
-  font-size: 35px;
-  font-style: normal;
+  font-size: 35px !important;
+  color: inherit !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

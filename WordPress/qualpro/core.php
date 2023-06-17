@@ -18,6 +18,7 @@ function qauth_init() {
 	update_option('qauth_api', 'https://api.qauth.cn');
 	update_option('qauth_auto_register', '1');
 	update_option('qauth_state_check', '1');
+	update_option('qauth_support_cn_name', '0');
 	update_option('qualpro_redirect_type', '1');
 	update_option('qualpro_redirect_url', '/');
 }
@@ -36,6 +37,7 @@ function qauth_deactivation() {
 
 // 登录界面新增第三方按钮
 function qualpro_login_button(){
+
     $qauth_api  = get_option('qauth_api');
     $qauth_appkey  = get_option('qauth_appkey');
     $qauth_user_secret  = get_option('qauth_user_secret');
@@ -81,6 +83,10 @@ function qualpro_login_button(){
 
 function qualpro_login($turn_to_current_page = false)
 {
+	if(is_user_logged_in()){
+		return;
+	}
+	
     $redirect = "";
     if($turn_to_current_page == true){
         $redirect = '&redirect='.home_url(add_query_arg(array()));

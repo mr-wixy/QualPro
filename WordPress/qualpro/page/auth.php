@@ -9,6 +9,7 @@ $qauth_appkey  = get_option('qauth_appkey');
 $qauth_user_secret  = get_option('qauth_user_secret');
 $qauth_auto_register = get_option('qauth_auto_register');
 $qauth_state_check = get_option('qauth_state_check');
+$qauth_support_cn_name = get_option('qauth_support_cn_name');
 $qualpro_redirect_url = get_option('qualpro_redirect_url');
 
 if(isset($_GET['code']) && isset($_GET['state'])){
@@ -19,7 +20,7 @@ if(isset($_GET['code']) && isset($_GET['state'])){
             wp_die("请求state无效！");
         }
     }
-    $response = wp_remote_get($qauth_api.'/authinfo?code='.$code.'&appkey='.$qauth_appkey.'&secret='.$qauth_user_secret);
+    $response = wp_remote_get($qauth_api.'/authinfov2?code='.$code.'&appkey='.$qauth_appkey.'&secret='.$qauth_user_secret);
     $body = wp_remote_retrieve_body( $response );
     $content_obj = json_decode($body);
     if($content_obj->code === 0){
@@ -120,7 +121,10 @@ if(isset($_GET['code']) && isset($_GET['state'])){
             else{
                 //未绑定用户
                 if($qauth_auto_register == '1'){
-                    $newUserName = $user_obj->nickName;
+                    $newUserName = $user_obj->randomName;
+                    if($qauth_support_cn_name){
+                        $newUserName = $user_obj->nickName;
+                    }
                     $user_id = username_exists($newUserName); 
                     if($user_id){  
                         $newUserName = $newUserName.'_'.substr(md5(uniqid(microtime())), 0, 4);

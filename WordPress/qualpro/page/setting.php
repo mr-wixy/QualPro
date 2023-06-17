@@ -20,6 +20,7 @@
             	$qauth_api   = isset($_POST['qauth_api'])?trim($_POST['qauth_api']):null;
             	$qauth_auto_register   = isset($_POST['qauth_auto_register'])?trim($_POST['qauth_auto_register']):null;
             	$qauth_state_check   = isset($_POST['qauth_state_check'])?trim($_POST['qauth_state_check']):null;
+            	$qauth_support_cn_name   = isset($_POST['qauth_support_cn_name'])?trim($_POST['qauth_support_cn_name']):null;
             	$qualpro_redirect_type = isset($_POST['qualpro_redirect_type'])?trim($_POST['qualpro_redirect_type']):null;
             	$qualpro_redirect_url = isset($_POST['qualpro_redirect_url'])?trim($_POST['qualpro_redirect_url']):null;
             	
@@ -28,6 +29,7 @@
             	update_option('qauth_api', $qauth_api);
             	update_option('qauth_auto_register', $qauth_auto_register);
             	update_option('qauth_state_check', $qauth_state_check);
+            	update_option('qauth_support_cn_name', $qauth_support_cn_name);
             	update_option('qualpro_redirect_type', $qualpro_redirect_type);
             	update_option('qualpro_redirect_url', $qualpro_redirect_url);
             	echo '<div class="updated settings-error"><p>保存成功</p></div>';
@@ -37,6 +39,7 @@
             $qauth_api  = get_option('qauth_api');
             $qauth_auto_register  = get_option('qauth_auto_register');
             $qauth_state_check  = get_option('qauth_state_check');
+            $qauth_support_cn_name  = get_option('qauth_support_cn_name');
             $qualpro_redirect_type  = get_option('qualpro_redirect_type');
             $qualpro_redirect_url  = get_option('qualpro_redirect_url');
                         
@@ -154,6 +157,13 @@
     				<th valign="top"><strong>启用state验证</strong>
     				</th>
     				<td><input type="checkbox" id="qauth_state_check" name="qauth_state_check" value="1"  <?php if($qauth_state_check) echo 'checked'; ?>/>开启
+    				</td>
+    			</tr>
+    			<tr>
+				<th valign="top">
+					<p style="margin: 0;">允许使用中文用户名</p>
+					<small style="color: orangered;">请确保网站已经支持中文用户名</small></th>
+    				<td><input type="checkbox" id="qauth_support_cn_name" name="qauth_support_cn_name" value="1"  <?php if($qauth_support_cn_name) echo 'checked'; ?>/>开启
     				</td>
     			</tr>
     			<tr>
