@@ -14,4 +14,4 @@
 
 安装和配置教程请参考
 
-> [QualPro-一个基于QuickAuth的WordPress集成登录插件](https://blog.wixy.cn/archives/99.html)
+> [QualPro-基于QuickAuth的Typecho集成登录插件](https://blog.wixy.cn/archives/99.html)
