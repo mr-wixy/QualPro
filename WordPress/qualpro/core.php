@@ -56,7 +56,7 @@ function qualpro_login_button(){
     $ua = $_SERVER['HTTP_USER_AGENT'];
     echo '<link rel="stylesheet" href="'.constant("qualpro_plugin").'res/qualpro.css">';
     echo '<p id="qualpro-title" class="qualpro-box">第三方账号登录</p>';
-    if(strpos($ua, 'MicroMessenger') != false){
+    if(strpos($ua, 'MicroMessenger') != false && $qualpro_wechat){
         echo '<p id="qualpro-title" class="qualpro-box"><a href="'.constant("qualpro_plugin").'page/qauth.php?type=wechat" class="button" style="width:100%;background-color:#2a0;border-color:#2a0;"><span class="iconfont icon-si-wechat" style="font-size:14px;color:white">&nbsp;微信一键登录</span></a></p>';
     }
     echo '<p id="qualpro-box" class="qualpro-box">';
