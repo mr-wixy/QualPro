@@ -4,7 +4,7 @@
  * 
  * @package QualPro 
  * @author wixy
- * @version 1.0.0
+ * @version 1.0.1
  * @link https://blog.wixy.cn
  */
 
@@ -12,7 +12,7 @@ class QualPro_Plugin implements Typecho_Plugin_Interface {
 	
     /** @var string 提交路由前缀 */
 	const PLUGIN_NAME  = 'QualPro';
-	const PLUGIN_VERSION  = '1.0.0';
+	const PLUGIN_VERSION  = '1.0.1';
 	const PLUGIN_PATH  = __TYPECHO_ROOT_DIR__.__TYPECHO_PLUGIN_DIR__.'/QualPro/';
     const LOGIN_TYPE = ['wechat'=>'微信','miniprogram'=>'小程序','sms'=>'验证码','qq'=>'QQ','github'=>'Github','weibo'=>'微博','alipay'=>'支付宝','dingtalk'=>'钉钉','gitee'=>'Gitee',];
 
@@ -135,7 +135,7 @@ class QualPro_Plugin implements Typecho_Plugin_Interface {
 		$form->addInput($encryptscrypt);
 		
         $options = self::LOGIN_TYPE;
-        $loginTypeInput = new Typecho_Widget_Helper_Form_Element_Checkbox('login_type',$options,'',_t('登录方式：'),'<b><font color=red>勾选表示启用</font></b>');
+        $loginTypeInput = new Typecho_Widget_Helper_Form_Element_Checkbox('login_type',$options,array(),_t('登录方式：'),'<b><font color=red>勾选表示启用</font></b>');
 		$form->addInput($loginTypeInput);
 		
 		$allowRegister = new Typecho_Widget_Helper_Form_Element_Radio('allow_register',array('0'=>'否','1'=>'是'),0,_t('允许未绑定微信账号扫码登录：',''),'<b><font color=red>开启后使用没有绑定的第三方账号登录会自动注册新的账号！</font></b>');
